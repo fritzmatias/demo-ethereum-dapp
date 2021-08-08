@@ -12,7 +12,7 @@
     "build": "tsc",
     "commitlint": "npx --no-install commitlint --edit ",
     "pretty": "npx --no-install pretty-quick --staged",
-    "lint": "eslint src --ext .js,.jsx,.ts,.tsx",
+    "lint": "eslint src test --ext .js,.jsx,.ts,.tsx",
     "docker-build": "eval ${npm_package_config_docker_run} ${npm_package_config_npm_run} run build",
     "docker-run": "eval ${npm_package_config_docker_run} ",
     "docker-tests": "eval ${npm_package_config_docker_run} ${npm_package_config_npm_run} test",
