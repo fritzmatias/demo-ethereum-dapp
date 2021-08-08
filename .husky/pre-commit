@@ -1,0 +1,4 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+npm run docker-build && npm run docker-pretty && npm run docker-lint
