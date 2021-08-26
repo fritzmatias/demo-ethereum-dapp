@@ -38,4 +38,5 @@ module.exports = {
   //   }
   // }
   // }
+  test_directory: './test/truffle',
 };

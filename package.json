@@ -4,15 +4,16 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest",
+    "test": "npx truffle test && jest",
     "commit": "git-cz",
     "commit:retry": "git-cz --retry",
     "commitmsg": "commitlint -e",
     "prepare": "husky install",
     "build": "tsc",
+    "migrate": "npx truffle migrate --reset --compile-all",
     "commitlint": "npx --no-install commitlint --edit ",
     "pretty": "npx --no-install pretty-quick --staged",
-    "lint": "eslint src test --ext .js,.jsx,.ts,.tsx",
+    "lint": "eslint src test/app --ext .js,.jsx,.ts,.tsx",
     "docker-build": "eval ${npm_package_config_docker_run} ${npm_package_config_npm_run} run build",
     "docker-run": "eval ${npm_package_config_docker_run} ",
     "docker-tests": "eval ${npm_package_config_docker_run} ${npm_package_config_npm_run} test",
@@ -41,7 +42,8 @@
     "jest": "^27.0.6",
     "prettier": "^2.3.2",
     "pretty-quick": "^3.1.1",
-    "ts-jest": "^27.0.4"
+    "ts-jest": "^27.0.4",
+    "ts-node": "^10.2.0"
   },
   "config": {
     "commitizen": {
