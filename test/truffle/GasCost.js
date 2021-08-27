@@ -1,4 +1,4 @@
-const { assert } = require('console');
+const assert = require('assert').strict;
 const GasCost = artifacts.require('GasCost');
 const web3utils = require('web3-utils');
 
@@ -16,7 +16,7 @@ contract('GasCost', (accounts) => {
     const tx = await GasCostInstance.createInstance({
       gas: gasEstimate,
     });
-    assert(tx);
+    assert.equal(!!tx, true);
   });
 
   it('...should successfully call a setConstant provided gas estimate', async () => {
@@ -24,7 +24,7 @@ contract('GasCost', (accounts) => {
     console.log(`**gasEstimation: ${gasEstimate}`);
     assert(gasEstimate <= 120000);
     const tx = await GasCostInstance.setConstant();
-    assert(tx);
+    assert.equal(!!tx, true);
   });
 
   it('...should successfully call a setName provided gas estimate', async () => {
@@ -35,7 +35,7 @@ contract('GasCost', (accounts) => {
     const tx = await GasCostInstance.setName(param, {
       gas: gasEstimate,
     });
-    assert(tx);
+    assert.equal(!!tx, true);
   });
 
   it('...should successfully call a executeSetName provided gas estimate', async () => {
@@ -46,7 +46,12 @@ contract('GasCost', (accounts) => {
     const tx = await GasCostInstance.executeSetName(param, {
       gas: gasEstimate,
     });
-    assert(tx);
+    assert.equal(!!tx, true);
+    assert(
+      GasCostInstance.getName.call((x) => {
+        console.log(`Ǹame: ${x}`);
+      }),
+    );
   });
 
   it('...should successfully call a changeOwnerName provided gas estimate', async () => {
@@ -60,7 +65,7 @@ contract('GasCost', (accounts) => {
       from: accounts[0],
       gas: gasEstimate,
     });
-    assert(tx);
+    assert.equal(!!tx, true);
   });
 
   it('...should successfully call a executeChangeOwnerName provided gas estimate', async () => {
@@ -73,7 +78,7 @@ contract('GasCost', (accounts) => {
       from: accounts[0],
       gas: gasEstimate,
     });
-    assert(tx);
+    assert.equal(!!tx, true);
   });
 
   it('...should successfully call a processBytes provided gas estimate', async () => {
@@ -85,7 +90,7 @@ contract('GasCost', (accounts) => {
     const tx = await GasCostInstance.processBytes(param, {
       gas: gasEstimate,
     });
-    assert(tx);
+    assert.equal(!!tx, true);
   });
 
   it('...should successfully call a changeAll provided gas estimate', async () => {
@@ -103,7 +108,7 @@ contract('GasCost', (accounts) => {
       from: accounts[0],
       gas: gasEstimate,
     });
-    assert(tx);
+    assert.equal(!!tx, true);
   });
 
   it('...should successfully call a changeAllTwice provided gas estimate', async () => {
@@ -121,7 +126,7 @@ contract('GasCost', (accounts) => {
       from: accounts[0],
       gas: gasEstimate,
     });
-    assert(tx);
+    assert.equal(!!tx, true);
   });
 
   it('...should successfully call a changeMapping provided gas estimate', async () => {
@@ -134,6 +139,6 @@ contract('GasCost', (accounts) => {
       from: accounts[0],
       gas: gasEstimate,
     });
-    assert(tx);
+    assert.equal(!!tx, true);
   });
 });

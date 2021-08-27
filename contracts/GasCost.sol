@@ -9,11 +9,16 @@ contract GasCost {
 
   constructor() public {
       _owner=msg.sender;
+      _name="StartName";
       collection[msg.sender]=0xFF;
   }
 
   event NameEvent(string evPram);
   event OwnerNameEvent(string evPram) ;
+
+  function getName() public view returns (string memory) {
+    return _name;
+  }
 
   function createInstance() public {
     new Contract();

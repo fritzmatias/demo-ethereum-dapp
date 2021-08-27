@@ -4,13 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "npx truffle test && jest",
+    "test": "npx ganache-cli & GANACHE_ID=$! && (npm run build; npx truffle test && jest); output=$?; echo $GANACHE_ID && kill $GANACHE_ID 2>/dev/null; return $output",
     "commit": "git-cz",
     "commit:retry": "git-cz --retry",
     "commitmsg": "commitlint -e",
-    "prepare": "husky install",
     "build": "tsc",
-    "migrate": "npx truffle migrate --reset --compile-all",
+    "copy-contracts": "npx babel build/contracts --out-dir dist/build/contracts --copy-files --no-copy-ignored",
+    "migrate": "npx truffle migrate --network development --reset --compile-all",
+    "test-migrate": "npx ganache-cli; npx truffle migrate --network development --reset --compile-all && npm run copy-contracts",
     "commitlint": "npx --no-install commitlint --edit ",
     "pretty": "npx --no-install pretty-quick --staged",
     "lint": "eslint src test/app --ext .js,.jsx,.ts,.tsx",
@@ -20,7 +21,9 @@
     "docker-lint": "eval ${npm_package_config_docker_run} ${npm_package_config_npm_run} run lint",
     "docker-commitlint": "eval ${npm_package_config_docker_run} ${npm_package_config_npm_run} run commitlint",
     "docker-pretty": "eval ${npm_package_config_docker_run}  ${npm_package_config_npm_run} run pretty",
-    "docker-commit": "eval ${npm_package_config_docker_runi}  ${npm_package_config_npm_run} run commit"
+    "docker-commit": "eval ${npm_package_config_docker_runi}  ${npm_package_config_npm_run} run commit",
+    "tsnode": "f(){ npx ganache-cli & (sleep 3 && npm run migrate && npx ts-node ${@}; )};f ",
+    "docker-tsnode": "eval ${npm_package_config_docker_runi}  ${npm_package_config_npm_run} run tsnode "
   },
   "keywords": [],
   "author": "",
@@ -33,17 +36,19 @@
     "@types/jest": "^26.0.24",
     "@typescript-eslint/eslint-plugin": "^4.29.0",
     "@typescript-eslint/parser": "^4.29.0",
+    "babel-cli": "^6.26.0",
     "commitizen": "^4.2.4",
     "create-semantic-module": "^1.0.1",
     "eslint": "^7.32.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-import": "^2.23.4",
+    "ganache-cli": "^6.12.2",
     "husky": "^7.0.1",
     "jest": "^27.0.6",
     "prettier": "^2.3.2",
     "pretty-quick": "^3.1.1",
     "ts-jest": "^27.0.4",
-    "ts-node": "^10.2.0"
+    "ts-node": "^10.2.1"
   },
   "config": {
     "commitizen": {
@@ -59,7 +64,9 @@
     }
   },
   "dependencies": {
+    "@truffle/contract": "^4.3.31",
     "truffle": "^5.4.5",
-    "typescript": "^4.3.5"
+    "typescript": "^4.3.5",
+    "web3": "^1.5.2"
   }
 }
